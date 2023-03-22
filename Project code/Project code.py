@@ -3,12 +3,13 @@ db = mysql.connector.connect(host = "localhost", user = "root", passwd = "ayoo",
 cur=db.cursor()
 
 def insertdept():
+    print("\n")
     while True:
-        depno = int(input("Enter department no.:"))
-        depname = input("Enter department name:")
-        no_do = int(input("Enter number of doctors in department:"))
-        no_pn = int(input("Enter number of patients in department:"))
-        no_bd = int(input("Enter number of empty beds in department:"))
+        depno = int(input("Enter department no.: "))
+        depname = input("Enter department name: ")
+        no_do = int(input("Enter number of doctors in department: "))
+        no_pn = int(input("Enter number of patients in department: "))
+        no_bd = int(input("Enter number of empty beds in department: "))
         cur.execute(f"insert into deptinfo values({depno},'{depname}',{no_do},{no_pn},{no_bd})")
         db.commit()
         rep = input("Do you want to add more department records?\nEnter YES/NO\n")
@@ -37,8 +38,7 @@ def deldep():
                break
             else:
                 print("Invalid department name.")
-    else:
-        print("Invalid output")
+    
     
 def depdocup():
     cur.execute(f"select * from deptinfo")
@@ -49,40 +49,41 @@ def depdocup():
             nod = int(input("Enter updated no. of doctors: "))
             cur.execute(f"update deptinfo set no_doc={nod} where deptname='{dname}'")
             db.commit()
-            break
+            
         
 def deppntup():
     cur.execute(f"select * from deptinfo")
     records = cur.fetchall()
-    dname = input("Enter the department name: ")
+    dname = input("\nEnter the department name: ")
     for i in records:
         if i[1]==dname:
             nop = int(input("Enter updated no. of patients: "))
             cur.execute(f"update deptinfo set no_pnt={nop} where deptname='{dname}'")
             db.commit()
-            break
+            
       
 def depebdup():
     cur.execute(f"select * from deptinfo")
     records = cur.fetchall()
-    dname = input("Enter the department name: ")
+    dname = input("\nEnter the department name: ")
     for i in records:
         if i[1]==dname:
             nbd = int(input("Enter updated no. of empty beds: "))
             cur.execute(f"update deptinfo set nob={nbd} where deptname='{dname}'")
             db.commit()
-            break
+            
     
 def updtdep():
-    s_ip = int(input("Choose record to be updated:\n1.No. of Doctors\n2.No. of Patients\n3.No. of Empty beds\n"))
-    if s_ip==1:
-        depdocup()
-    elif s_ip==2:
-        deppntup()
-    elif s_ip==3:
-        depebdup()
-    else:
-        print("Invalid choice")
+    while True:
+        s_ip = int(input("Choose record to be updated:\n1.No. of Doctors\n2.No. of Patients\n3.No. of Empty beds\n4.Exit\n"))
+        if s_ip==1:
+            depdocup()
+        elif s_ip==2:
+            deppntup()
+        elif s_ip==3:
+            depebdup()
+        else:
+            break
 
 def searchdep():
     cur.execute("select * from deptinfo")
@@ -90,7 +91,7 @@ def searchdep():
     dnm = input("Enter the department name: ")
     for i in records:
         if i[1]==dnm:
-            print("Department no.",i[0],"\nDepartment Name:",i[1],"\nNo. of Doctors:",i[2],"\nNo. of patients:",i[3],"\nNo. of beds:",i[4])
+            print("\nDepartment no.",i[0],"\nDepartment Name:",i[1],"\nNo. of Doctors:",i[2],"\nNo. of patients:",i[3],"\nNo. of beds:",i[4])
     
 def readdep():
     cur.execute("select * from deptinfo")
@@ -104,7 +105,7 @@ def insertdoc():
         docname = input("Enter the doctor's name:")
         depname = input("Enter department name:")
         doj = input("Enter the date of joining:")
-        dol = input("Enter thr date of leaving:\nIf not applicable enter NA")
+        dol = input("Enter thr date of leaving:\nIf not applicable enter \n")
         dmail = input("Enter the doctor's email ID:")
         cur.execute(f"insert into docinfo values({docn},'{docname}','{depname}','{doj}','{dol}','{dmail}')")
         db.commit()
@@ -164,7 +165,7 @@ def readdoc():
 
 def insertpnt():
     while True:
-        print("Kindly enter 'NA' if the data is not applicable")
+        print("\nKindly enter 'NA' if the data is not applicable\n")
         pno = int(input("Enter patient ID no.:"))
         pname = input("Enter patient name:")
         pmob = int(input("Enter patient mobile no.:"))
@@ -216,7 +217,7 @@ def gdup():
             cur.execute(f"update pntinfo set pngdn='{gdnm}' where pntno={pnum}")
             cur.execute(f"update pntinfo set pngdr='{gdrl}' where pntno={pnum}")
             db.commit()
-            break
+            
 
 def dcdtup():
     cur.execute(f"select * from pntinfo")
@@ -230,13 +231,16 @@ def dcdtup():
             break
 
 def updtpnt():
-    up_c=int(input("Choose column to be updated:\n1.Guardian Details\n2.Discharging Date\n"))
-    if up_c==1:
-        gdup()
-    elif up_c==2:
-        dcdtup()
-    else:
-        print("Invalid choice.")
+    while True:
+        up_c=int(input("Choose column to be updated:\n1.Guardian Details\n2.Discharging Date\n"))
+        if up_c==1:
+            gdup()
+        elif up_c==2:
+            dcdtup()
+        else:
+            print("Invalid choice.")
+            break
+        
 
 def searchpnt():
     cur.execute("select * from pntinfo")
@@ -244,7 +248,7 @@ def searchpnt():
     pnm = input("Enter the patient ID no.: ")
     for i in records:
         if i[0]==pnm:
-            print("Patient ID no.",i[0],"\nPatient Name:",i[1],"\nMobile No.:",i[2],"\Guardian name:",i[3],"\nRelation:",i[4],"\nAdmit Date:",i[5],"\nDicharge Date:",i[6],"\nCause of Admitting:",i[7],"\nAdmitting Department",i[8])
+            print("\nPatient ID no.",i[0],"\nPatient Name:",i[1],"\nMobile No.:",i[2],"\Guardian name:",i[3],"\nRelation:",i[4],"\nAdmit Date:",i[5],"\nDicharge Date:",i[6],"\nCause of Admitting:",i[7],"\nAdmitting Department",i[8])
 def readpnt():
     cur.execute("select * from pntinfo")
     records=cur.fetchall()
@@ -252,9 +256,9 @@ def readpnt():
         print(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7],i[8])
 
 def pntfunc():
-    print("*********************PATIENT RECORDS************************")
+    print("\n*********************PATIENT RECORDS************************\n")
     while True:
-        c_no=int(input("Enter choice no.:\n1.Display all recordss\n2.Insert new record/s\n3.Search for a record\n4.Update a record\n5.Delete a record\n6.Exit from Patient Records"))
+        c_no=int(input("\n1.Display all recordss\n2.Insert new record/s\n3.Search for a record\n4.Update a record\n5.Delete a record\n6.Exit from Patient Records\nEnter choice no.:"))
         if c_no==1:
             readpnt()
         elif c_no==2:
@@ -269,9 +273,9 @@ def pntfunc():
             break
 
 def docfunc():
-    print("*********************DOCTOR RECORDS************************")
+    print("\n*********************DOCTOR RECORDS************************")
     while True:
-        c_no=int(input("Enter choice no.:\n1.Display all recordss\n2.Insert new record/s\n3.Search for a record\n4.Update a record\n5.Delete a record\n6.Exit from Doctor Records"))
+        c_no=int(input("\n1.Display all recordss\n2.Insert new record/s\n3.Search for a record\n4.Update a record\n5.Delete a record\n6.Exit from Doctor Records\nEnter choice no.:"))
         if c_no==1:
             readdoc()
         elif c_no==2:
@@ -286,9 +290,9 @@ def docfunc():
             break
 
 def depfunc():
-    print("*********************DEPARTMENT RECORDS************************")
+    print("*********************DEPARTMENT RECORDS************************\n")
     while True:
-        c_no=int(input("Enter choice no.:\n1.Display all recordss\n2.Insert new record/s\n3.Search for a record\n4.Update a record\n5.Delete a record\n6.Exit from Department Records"))
+        c_no=int(input("1.Display all recordss\n2.Insert new record/s\n3.Search for a record\n4.Update a record\n5.Delete a record\n6.Exit from Department Records\nEnter choice no.:"))
         if c_no==1:
             readdep()
         elif c_no==2:
@@ -302,13 +306,13 @@ def depfunc():
         else:
             break
 
-print("*********************LAUGH OUT LOUD HOSPITAL************************") 
+print("*********************LAUGH OUT LOUD HOSPITAL************************\n\n") 
 usnm=input("Enter Username:\n")
-paswd=input("Enter Password:") 
-if usnm=="admin" and paswd=='l5o3l4lolhospp':
+paswd=input("Enter Password:\n") 
+if usnm=="admin" and paswd=='l5o3l4lol':
     while True: 
-        print("WELCOME")
-        re=int(input("Enter Choice number to access:\n1.Department Records\n2.Doctor Records\n3.Patient Records\n4.Exit"))
+        print("\n************************WELCOME************************\n")
+        re=int(input("1.Department Records\n2.Doctor Records\n3.Patient Records\n4.Exit\nEnter Choice number to access:"))
         if re==1:
             depfunc()
         elif re==2:
