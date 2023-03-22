@@ -105,9 +105,8 @@ def insertdoc():
         depname = input("Enter department name:")
         doj = input("Enter the date of joining:")
         dol = input("Enter thr date of leaving:\nIf not applicable enter NA")
-        dmob = int(input("Enter the doctor's no.:"))
         dmail = input("Enter the doctor's email ID:")
-        cur.execute(f"insert into docinfo values({docn},'{docname}','{depname}','{doj}','{dol}',{dmob},'{dmail}')")
+        cur.execute(f"insert into docinfo values({docn},'{docname}','{depname}','{doj}','{dol}','{dmail}')")
         db.commit()
         rep = input("Do you want to add more records?\nEnter YES/NO\n")
         if rep in "NOno":
@@ -155,20 +154,20 @@ def searchdoc():
     dnm = input("Enter the doctor's ID no.: ")
     for i in records:
         if i[0]==dnm:
-            print("Doctor ID no.",i[0],"\nName:",i[1],"\nDepartment Name:",i[2],"\nDate of Joining:",i[3],"\nDate of leaving:",i[4],"\nMobile No.:",i[5],"\nEmail ID:",i[6])
+            print("Doctor ID no.",i[0],"\nName:",i[1],"\nDepartment Name:",i[2],"\nDate of Joining:",i[3],"\nDate of leaving:",i[4],"\nEmail ID:",i[5])
 
 def readdoc():
     cur.execute("select * from docinfo")
     records=cur.fetchall()
     for i in records:
-        print(i[0],i[1],i[2],i[3],i[4],i[5],i[6])
+        print(i[0],i[1],i[2],i[3],i[4],i[5])
 
 def insertpnt():
     while True:
         print("Kindly enter 'NA' if the data is not applicable")
         pno = int(input("Enter patient ID no.:"))
         pname = input("Enter patient name:")
-        pmob = int(input("Enter patient mobil no.:"))
+        pmob = int(input("Enter patient mobile no.:"))
         pgdn =input("Enter guardian name:")
         pgdr = input("Enter relation with patient:")
         amdt = input("Enter admit date:")
