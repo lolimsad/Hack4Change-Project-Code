@@ -1,0 +1,66 @@
+use hospital;
+
+create table deptinfo(
+     deptno integer(2) primary key,
+     deptname varchar(25) not null,
+     no_doc integer(2) not null,
+     no_ptn integer(3),
+     nob integer(3) not null);
+
+desc deptinfo;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| deptno   | int         | NO   | PRI | NULL    |       |
+| deptname | varchar(25) | NO   |     | NULL    |       |
+| no_doc   | int         | NO   |     | NULL    |       |
+| no_ptn   | int         | YES  |     | NULL    |       |
+| nob      | int         | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+create table docinfo(
+     docno integer(2) primary key,
+     docname varchar(15) not null,
+     deptname varchar(25) not null,
+     datejoin char(10) not null,
+     dateleave char(10)
+     );
+
+desc docinfo;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| docno     | int         | NO   | PRI | NULL    |       |
+| docname   | varchar(15) | NO   |     | NULL    |       |
+| deptname  | varchar(25) | NO   |     | NULL    |       |
+| datejoin  | char(10)    | NO   |     | NULL    |       |
+| dateleave | char(10)    | YES  |     | NULL    |       |
+| docmob    | int         | YES  |     | NULL    |       |
+| docmail   | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+create table pntinfo(
+    pntno integer(3) primary key,
+    pntname varchar(15) not null,
+    pnmob integer(10) not null,
+    pngdn varchar(15),
+    pngdr varchar(10),
+    admdate char(10) not null,
+    disdate char(10),
+    cause varchar(20),
+    deptname varchar(25)
+    );
+desc pntinfo;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| pntno    | int         | NO   | PRI | NULL    |       |
+| pntname  | varchar(15) | NO   |     | NULL    |       |
+| pnmob    | int         | NO   |     | NULL    |       |
+| pngdn    | varchar(15) | YES  |     | NULL    |       |
+| pngdr    | varchar(10) | YES  |     | NULL    |       |
+| admdate  | char(10)    | NO   |     | NULL    |       |
+| disdate  | char(10)    | YES  |     | NULL    |       |
+| cause    | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(25) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
