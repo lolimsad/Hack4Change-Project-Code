@@ -58,7 +58,7 @@ def deppntup():
     for i in records:
         if i[1]==dname:
             nop = int(input("Enter updated no. of patients: "))
-            cur.execute(f"update deptinfo set no_pnt={nop} where deptname='{dname}'")
+            cur.execute(f"update deptinfo set no_ptn={nop} where deptname='{dname}'")
             db.commit()
             
       
@@ -173,9 +173,8 @@ def insertpnt():
         pgdr = input("Enter relation with patient:")
         amdt = input("Enter admit date:")
         dcdt = input("Enter discharge date:")
-        amcas = input("Enter the cause for admitting:")
         depname = input("Enter the department name where the patient is admitted:")
-        cur.execute(f"insert into pntinfo values({pno},'{pname},{pmob},'{pgdn}','{pgdr}','{amdt}','{dcdt}','{amcas}','{depname}')")
+        cur.execute(f"insert into pntinfo values({pno},'{pname}',{pmob},'{pgdn}','{pgdr}','{amdt}','{dcdt}','{depname}')")
         db.commit()
         rep = input("Do you want to add more records?\nEnter YES/NO\n")
         if rep in "NOno":
@@ -248,12 +247,12 @@ def searchpnt():
     pnm = input("Enter the patient ID no.: ")
     for i in records:
         if i[0]==pnm:
-            print("\nPatient ID no.",i[0],"\nPatient Name:",i[1],"\nMobile No.:",i[2],"\Guardian name:",i[3],"\nRelation:",i[4],"\nAdmit Date:",i[5],"\nDicharge Date:",i[6],"\nCause of Admitting:",i[7],"\nAdmitting Department",i[8])
+            print("\nPatient ID no.",i[0],"\nPatient Name:",i[1],"\nMobile No.:",i[2],"\Guardian name:",i[3],"\nRelation:",i[4],"\nAdmit Date:",i[5],"\nDicharge Date:",i[6],"\nAdmitting Department",i[7])
 def readpnt():
     cur.execute("select * from pntinfo")
     records=cur.fetchall()
     for i in records:
-        print(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7],i[8])
+        print(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7])
 
 def pntfunc():
     print("\n*********************PATIENT RECORDS************************\n")
